@@ -114,11 +114,17 @@ def update_dashboard(selected_route):
     daily = filtered.groupby("date")["passengers"].sum().reset_index()
     daily = daily.sort_values("date")
     line = px.line(daily, x="date", y="passengers")
+    line.update_layout(title="Пассажиропоток по дням")
+    line.update_xaxes(title_text="Дата")
+    line.update_yaxes(title_text="Количество пассажиров")
 
     # TODO: 7. Сгруппируйте filtered по route, суммируйте passengers
     # и создайте px.bar. Замените обе строки ниже.
     by_route = filtered.groupby("route")["passengers"].sum().reset_index()
     bar = px.bar(by_route, x="route", y="passengers")
+    bar.update_layout(title="Пассажиропоток по маршрутам")
+    bar.update_xaxes(title_text="Маршрут")
+    bar.update_yaxes(title_text="Количество пассажиров")
 
     # Оформление и порядок возвращаемых значений уже готовы.
     line.update_layout(template="plotly_white", height=350,
